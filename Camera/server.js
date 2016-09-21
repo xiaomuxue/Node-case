@@ -12,7 +12,6 @@ app.use(express.static(__dirname));
 app.post("/uploadPhoto",function(req,res){   //处理请求地址为/uploadPhoto的post请求
     //console.info(req.body.imageData);
     var bitmap=new Buffer(req.body.imageData,"base64");
-
     fs.writeFile("./images/"+new Date().getTime()+".png",bitmap,function(err){
         if(err){
             res.send("0");
