@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>显示</title>
+    <script src="jquery-1.9.1.js"></script>
+    <script>
+        $(function(){
+            $.get("currentUserName",null,function(data){
+               $("#currentUser").text(data);
+            });
+        });
+    </script>
+</head>
+<body>
+  <h1 id="currentUser"></h1>
+</body>
+</html>
