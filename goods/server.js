@@ -150,6 +150,29 @@ app.get("/getAllTypes",function(req,res){      //处理获取所有商品类型�
    });
 });
 
+//post请求（添加商品类型）
+app.post("/addGoodsType",function(req,res){
+    if(req.body.tname==""){
+        res.send("0");
+    }else{
+        pool.getConnection(function(err,conn){
+            if(err){
+                res.send("0");
+            }else{
+                conn.query("insert into goodsType values(0,?,1)",[req.body.tname],function(err,result){
+                   conn.release();
+                    if(err){
+                        res.send("0");
+                    }else{
+                        res.send(result.insertId+"");
+                    }
+                });
+            }
+        });
+    }
+});
+
+
 //使用静态中间件
 app.use(express.static("page"));      //默认到page文件夹下查找静态资源
 

@@ -4,12 +4,35 @@
     <meta charset="UTF-8">
     <title>商品类型管理</title>
     <link rel="shortcut icon" href="../images/yc2.png" />
+    <script type="text/javascript" src="../js/jquery-1.9.1.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            $.get("/getAllTypes",null,function(data){
+                $.each(data,function(index,item){
+                   $("#goodsTypeInfo").append($("<tr><td>"+item.tid+"</td><td>"+item.tname+"</td></tr>"));
+                });
+            },"json");
+        });
+
+        function addGoodsType(){
+            var tname= $.trim($("#tname").val());
+            $.port("/addGoodsType",{tname:tname},function(data){
+                data= $.trim(data);
+                if(data=="0"){
+                    alert("商品类型添加失败.....");
+                }else{
+                    var str="<tr><td>"+data+"</td><td>"+tname+"</td></tr>";
+                    $("#goodsTypeInfo").append( $(str) );
+                }
+            },"text");
+        }
+    </script>
 </head>
 <body>
     <fieldset>
         <legend>添加商品类型</legend>
-        商品类型名称：<input type="text" name="tname">
-        <input type="button" value="添加"/>
+        商品类型名称：<input type="text" name="tname" id="tname">
+        <input type="button" value="添加" onclick="addGoodsType()"/>
     </fieldset>
 
     <fieldset>
@@ -23,7 +46,7 @@
                    <th>商品类型名称</th>
                </tr>
             </thead>
-            <tbody>
+            <tbody id="goodsTypeInfo" align="center">
 
             </tbody>
         </table>
